@@ -19,10 +19,6 @@
 //評価：定数=>コンパイル時に評価  変数=>実行時に評価
 //スコープ：定数=>グローバルに定義できる(モジュール定義推奨) 変数=>ブロック内
 
-//数値を計算する場合は同じ型にしなければいけない
-//異なる型で計算しようとするとエラーになる
-//error[E0308]: mismatched types
-
 //mainで呼び出すためpubとする
 pub fn var_num() {
     const CONST_VALUE: i32 = 10;
@@ -32,7 +28,23 @@ pub fn var_num() {
     //mutableなので変更できる
     mutable_var = 15;
 
+    //数値を計算する場合は同じ型にしなければいけない
+    //異なる型で計算しようとするとエラーになる
+    //error[E0308]: mismatched types
     //異なる型で計算をする場合は　[as 型名] で変換する
     let total: i32 = CONST_VALUE + immutable_var + mutable_var as i32;
     println!("{}", total);
+}
+
+pub fn var_string() {
+
+    //文字列を扱う型[&str]と[String]について
+    //[&str]
+    //不変
+    //参照
+    //軽量で早い
+    //[String]
+    //可変
+    //所有
+    //文字列操作を柔軟に行える
 }
