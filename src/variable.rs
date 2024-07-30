@@ -6,6 +6,11 @@
 //変数=>max_value　小文字のスネークケース
 //定数=>MAX_VALUE　大文字のスネークケース
 
+//領域
+//変数自体や数値型=>スタック
+//文字列やベクタ等=>ヒープ
+//定数や&str=>静的
+
 //変数はデフォルトで不変(immutable)なのでこのコードはコンパイルエラーになる
 // let x: i32 = 10;
 // x = 20;
@@ -36,15 +41,34 @@ pub fn var_num() {
     println!("{}", total);
 }
 
-pub fn var_string() {
+//Stringと&str
+//String=>可変 &str=>不変
+//String=>所有 &str=>参照
+//String=>柔軟 &str=>軽量
 
-    //文字列を扱う型[&str]と[String]について
-    //[&str]
-    //不変
-    //参照
-    //軽量で早い
-    //[String]
-    //可変
-    //所有
-    //文字列操作を柔軟に行える
+pub fn var_string() {
+    //どちらでも文字列を定義できる。違いはまだわからない。
+    let string1: String = String::from("Hello!");
+    // let string1: String = "String1".to_string();
+
+    //cloneは値渡しなので別のメモリに同じ文字列がコピーされる
+    let string2: String = string1.clone();
+
+    //この場合は所有権が移動してstring1は使えなくなる
+    let mut string3: String = string1;
+
+    //他の言語なら普通の書き方だがrustではエラーになる
+    //tostringやfromを使わない文字列は&str型と判断されStringと型違いになる
+    //string3 = "abcde";
+
+    //エラーになりそうでならない
+    //rustでは再定義が認められている　シャドーイングと言うらしい
+    let string3: String = "World!".to_string();
+
+    //+で文字列を結合する場合、1番目はString型で2番目以降は&str型(&をつける)
+
+    //1行目を書くとstring2の所有権が移動してしまうため2行目はエラーになる
+    //formatマクロを利用した場合は所有権は移動しない
+    // println!("{}", string2 + &string3);
+    println!("{}", format!("{}{}", string2, string3));
 }
