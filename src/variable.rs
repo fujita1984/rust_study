@@ -52,9 +52,10 @@ pub fn var_string() {
     // let string1: String = "String1".to_string();
 
     //cloneは値渡しなので別のメモリに同じ文字列がコピーされる
+    //値渡しなので所有権の移動は起こらない
     let string2: String = string1.clone();
 
-    //この場合は所有権が移動してstring1は使えなくなる
+    //=変数名と書くと所有権が移動してstring1は使えなくなる
     let mut string3: String = string1;
 
     //他の言語なら普通の書き方だがrustではエラーになる
@@ -66,9 +67,9 @@ pub fn var_string() {
     let string3: String = "World!".to_string();
 
     //+で文字列を結合する場合、1番目はString型で2番目以降は&str型(&をつける)
-
-    //1行目を書くとstring2の所有権が移動してしまうため2行目はエラーになる
-    //formatマクロを利用した場合は所有権は移動しない
+    //+で文字列を結合した場合、1番目のString型は所有権が移動する
     // println!("{}", string2 + &string3);
+
+    //formatマクロを利用した場合は所有権は移動しない
     println!("{}", format!("{}{}", string2, string3));
 }
