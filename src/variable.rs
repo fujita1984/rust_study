@@ -73,3 +73,25 @@ pub fn var_string() {
     //formatマクロを利用した場合は所有権は移動しない
     println!("{}", format!("{}{}", string2, string3));
 }
+
+pub fn var_str() {
+    //&str
+    //一般的な言語の様に変数に文字リテラルを代入した場合の型は[&str]になる
+    let str: &str = "str";
+
+    //Stringに変換する場合はto_stringを使う
+    let mut str_to_string: String = str.to_string();
+
+    //Stringからstrに変換する場合はStringの参照を取得する
+    let string_to_str: &str = &str_to_string;
+
+    //借用されているため以下の代入はコンパイルエラーになる
+    // str_to_string = "QQQ".to_string();
+
+    //借用されていてもシャドーイングする事はできる
+    let str_to_string: String = "QQQ".to_string();
+
+    //シャドーイングによりstring_to_strの元になった値は変わったが、
+    //string_to_strは[str]があるメモリを参照し続けるため[str]が出力される
+    println!("{}", string_to_str);
+}
