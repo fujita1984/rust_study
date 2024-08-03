@@ -1,5 +1,6 @@
 //別ファイルの関数を利用するためにmod filenameとする;
 mod array;
+mod controle_syntax;
 mod variable;
 
 fn main() {
@@ -7,4 +8,5 @@ fn main() {
     variable::var_string();
     variable::var_str();
     array::arrays();
+    controle_syntax::loop1();
 }
